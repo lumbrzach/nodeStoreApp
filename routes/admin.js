@@ -2,17 +2,17 @@ const path = require('path');
 
 const express = require('express');
 
-const rootDir = require('../utils/path');
+// This comes from 'utils' and just sets the base path consistently
+// const rootDir = require('../utils/path');
+const productsController = require('../controllers/products');
 
 const router = express.Router();
 
-router.get('/add-product', (req, res, next) => {
-  res.status(200).sendFile(path.join(rootDir, 'views', 'add-product.html'));
-});
+router.get('/add-product', productsController.getAddProduct);
+router.post('/add-product', productsController.postAddProduct);
 
-router.post('/add-product', (req, res, next) => {
-  console.log(req.body);
-  res.redirect('/');
-});
+// exports everything in file as one
+// module.exports = router;
 
+// breaks up file into accessible pieces when importing
 module.exports = router;
